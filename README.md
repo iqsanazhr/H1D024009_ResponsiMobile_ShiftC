@@ -22,7 +22,7 @@
 ## Identitas Praktikan
 - **Nama Lengkap:** Iqsan Azhar Nuryadi
 - **NIM:** H1D024009
-- **Shift Awal:** Shift C
+- **Shift Awal:** Shift A
 - **Shift Akhir:** Shift C
 - **Link Video Demo/Penjelasan:** [YouTube/Google Drive](https://...)
 
