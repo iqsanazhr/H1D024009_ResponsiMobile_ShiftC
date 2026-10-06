@@ -70,6 +70,7 @@ import com.example.myapplication.ui.theme.getPokemonTypeColor
 fun DetailScreen(
     pokemonId: String,
     onBackClick: () -> Unit,
+    onBattleClick: (Int) -> Unit = {},
     viewModel: DetailViewModel = viewModel(),
     modifier: Modifier = Modifier
 ) {
@@ -92,11 +93,43 @@ fun DetailScreen(
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = onBackClick) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Kembali"
-                        )
+                    IconButton(
+                        onClick = onBackClick,
+                        modifier = Modifier
+                            .padding(start = 8.dp)
+                            .size(42.dp)
+                    ) {
+                        Surface(
+                            shape = CircleShape,
+                            color = MaterialTheme.colorScheme.surfaceVariant,
+                            shadowElevation = 3.dp,
+                            modifier = Modifier.fillMaxSize()
+                        ) {
+                            Box(contentAlignment = Alignment.Center) {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                    contentDescription = "Kembali",
+                                    tint = MaterialTheme.colorScheme.onSurface,
+                                    modifier = Modifier.size(22.dp)
+                                )
+                            }
+                        }
+                    }
+                },
+                actions = {
+                    uiState.pokemonDetail?.let { detail ->
+                        androidx.compose.material3.FilledTonalButton(
+                            onClick = { onBattleClick(detail.id) },
+                            shape = RoundedCornerShape(12.dp),
+                            modifier = Modifier.padding(end = 12.dp)
+                        ) {
+                            Text(
+                                text = "⚔️ Battle",
+                                style = MaterialTheme.typography.labelMedium.copy(
+                                    fontWeight = FontWeight.Bold
+                                )
+                            )
+                        }
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -123,7 +156,10 @@ fun DetailScreen(
                 }
 
                 uiState.pokemonDetail != null -> {
-                    PokemonDetailContent(pokemon = uiState.pokemonDetail!!)
+                    PokemonDetailContent(
+                        pokemon = uiState.pokemonDetail!!,
+                        onBattleClick = onBattleClick
+                    )
                 }
             }
         }
@@ -134,6 +170,7 @@ fun DetailScreen(
 @Composable
 private fun PokemonDetailContent(
     pokemon: PokemonDetail,
+    onBattleClick: (Int) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val scrollState = rememberScrollState()
@@ -365,6 +402,21 @@ private fun PokemonDetailContent(
                         )
                     }
                 }
+            }
+
+            Spacer(modifier = Modifier.height(18.dp))
+
+            androidx.compose.material3.Button(
+                onClick = { onBattleClick(pokemon.id) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(52.dp),
+                shape = RoundedCornerShape(16.dp)
+            ) {
+                Text(
+                    text = "⚔️ Uji Pertarungan di Battle Arena",
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
+                )
             }
 
             Spacer(modifier = Modifier.height(32.dp))

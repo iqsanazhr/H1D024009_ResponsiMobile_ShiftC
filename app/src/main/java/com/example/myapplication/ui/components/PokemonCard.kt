@@ -1,12 +1,11 @@
 package com.example.myapplication.ui.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -17,6 +16,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -33,9 +33,11 @@ import androidx.compose.ui.unit.sp
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import com.example.myapplication.data.model.PokemonItem
+import com.example.myapplication.ui.theme.getPokemonTypeColor
 
 /**
  * Reusable Card untuk item Pokémon di dalam LazyVerticalGrid
+ * Menampilkan latar belakang yang beradaptasi dengan warna tipe atribut Pokémon
  */
 @Composable
 fun PokemonCard(
@@ -43,16 +45,19 @@ fun PokemonCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val typeColor = getPokemonTypeColor(pokemon.primaryType)
+
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(18.dp))
+            .clip(RoundedCornerShape(20.dp))
             .clickable { onClick() },
-        shape = RoundedCornerShape(18.dp),
+        shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f)
+            containerColor = typeColor.copy(alpha = 0.12f)
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)
+        border = BorderStroke(1.dp, typeColor.copy(alpha = 0.35f)),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Column(
             modifier = Modifier
@@ -62,32 +67,38 @@ fun PokemonCard(
         ) {
             // Header Nomor ID Pokémon
             Box(
-                modifier = Modifier
-                    .fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 contentAlignment = Alignment.TopEnd
             ) {
-                Text(
-                    text = pokemon.formattedId,
-                    style = MaterialTheme.typography.labelMedium.copy(
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
-                        fontSize = 12.sp
+                Surface(
+                    color = typeColor.copy(alpha = 0.25f),
+                    shape = RoundedCornerShape(8.dp)
+                ) {
+                    Text(
+                        text = pokemon.formattedId,
+                        style = MaterialTheme.typography.labelSmall.copy(
+                            fontWeight = FontWeight.ExtraBold,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            fontSize = 11.sp
+                        ),
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
                     )
-                )
+                }
             }
 
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(6.dp))
 
-            // Gambar Pokémon
+            // Kotak Gambar Pokémon dengan Latar Belakang Warna Atribut
             Box(
                 modifier = Modifier
-                    .size(110.dp)
-                    .clip(RoundedCornerShape(14.dp))
+                    .fillMaxWidth()
+                    .height(115.dp)
+                    .clip(RoundedCornerShape(16.dp))
                     .background(
                         Brush.radialGradient(
                             colors = listOf(
-                                MaterialTheme.colorScheme.surface,
-                                MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
+                                typeColor.copy(alpha = 0.50f),
+                                typeColor.copy(alpha = 0.20f)
                             )
                         )
                     ),
@@ -101,8 +112,8 @@ fun PokemonCard(
                     contentDescription = pokemon.displayName,
                     contentScale = ContentScale.Fit,
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(6.dp),
+                        .size(100.dp)
+                        .padding(4.dp),
                     loading = {
                         Box(
                             contentAlignment = Alignment.Center,
@@ -110,7 +121,8 @@ fun PokemonCard(
                         ) {
                             CircularProgressIndicator(
                                 modifier = Modifier.size(24.dp),
-                                strokeWidth = 2.dp
+                                strokeWidth = 2.dp,
+                                color = typeColor
                             )
                         }
                     }
@@ -129,6 +141,11 @@ fun PokemonCard(
                 maxLines = 1,
                 textAlign = TextAlign.Center
             )
+
+            Spacer(modifier = Modifier.height(6.dp))
+
+            // Badge Tipe Atribut Pokémon
+            TypeBadge(type = pokemon.primaryType)
         }
     }
 }

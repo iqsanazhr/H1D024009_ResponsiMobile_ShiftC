@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -38,6 +39,7 @@ import com.example.myapplication.ui.components.PokemonSearchBar
 @Composable
 fun HomeScreen(
     onPokemonClick: (Int) -> Unit,
+    onBattleClick: () -> Unit = {},
     viewModel: HomeViewModel = viewModel(),
     modifier: Modifier = Modifier
 ) {
@@ -56,12 +58,18 @@ fun HomeScreen(
                     )
                 },
                 actions = {
-                    Icon(
-                        imageVector = Icons.Default.CatchingPokemon,
-                        contentDescription = "Pokeball",
-                        tint = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.padding(end = 16.dp)
-                    )
+                    androidx.compose.material3.FilledTonalButton(
+                        onClick = onBattleClick,
+                        shape = RoundedCornerShape(12.dp),
+                        modifier = Modifier.padding(end = 12.dp)
+                    ) {
+                        Text(
+                            text = "⚔️ Battle",
+                            style = MaterialTheme.typography.labelMedium.copy(
+                                fontWeight = FontWeight.Bold
+                            )
+                        )
+                    }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface

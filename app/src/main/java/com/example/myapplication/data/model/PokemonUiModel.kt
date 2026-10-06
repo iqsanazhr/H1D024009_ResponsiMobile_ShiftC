@@ -6,7 +6,8 @@ package com.example.myapplication.data.model
 data class PokemonItem(
     val id: Int,
     val name: String,
-    val imageUrl: String
+    val imageUrl: String,
+    val primaryType: String = PokemonTypeHelper.getTypeForId(id)
 ) {
     val formattedId: String
         get() = "#%03d".format(id)

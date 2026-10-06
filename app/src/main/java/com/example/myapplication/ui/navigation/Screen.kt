@@ -13,4 +13,13 @@ sealed class Screen(val route: String) {
             return "detail_screen/$pokemonId"
         }
     }
+
+    data object Battle : Screen("battle_screen?p1={p1}&p2={p2}") {
+        const val ARG_P1 = "p1"
+        const val ARG_P2 = "p2"
+
+        fun createRoute(p1: Int = 6, p2: Int = 9): String {
+            return "battle_screen?p1=$p1&p2=$p2"
+        }
+    }
 }
