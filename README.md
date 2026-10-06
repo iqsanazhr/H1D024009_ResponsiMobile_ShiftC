@@ -105,11 +105,19 @@ app/src/main/java/com/example/myapplication/
 
 ---
 
-## Tangkapan Layar (Screenshots)
+## 📸 Tangkapan Layar (Screenshots)
 
-| Katalog Home & Grid | Pencarian & Filter | Detail Pokémon & Stats | Battle Arena & Komparasi |
-|:---:|:---:|:---:|:---:|
-| ![Home Screen](docs/screen1.png) | ![Search Screen](docs/screen2.png) | ![Detail Screen](docs/screen3.png) | ![Battle Arena](docs/screen4.png) |
+<div align="center">
+
+| 1. Katalog Pokémon & Grid | 2. Pencarian & Filter Real-Time | 3. Detail Pokémon & Stats |
+|:---:|:---:|:---:|
+| <img src="docs/screen1.png" width="230" alt="Katalog Utama" /> | <img src="docs/screen2.png" width="230" alt="Pencarian Real-Time" /> | <img src="docs/screen3.png" width="230" alt="Detail Pokémon" /> |
+
+| 4. Battle Arena (Simulasi Duel) | 5. Komparasi Statistik Head-to-Head |
+|:---:|:---:|
+| <img src="docs/screen4.png" width="230" alt="Battle Arena Duel" /> | <img src="docs/screen5.png" width="230" alt="Komparasi Statistik Detail" /> |
+
+</div>
 
 
 ---
