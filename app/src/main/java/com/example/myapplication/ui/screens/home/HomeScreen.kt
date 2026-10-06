@@ -122,7 +122,7 @@ fun HomeScreen(
                 shadowElevation = 4.dp,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Box(modifier = Modifier.padding(bottom = 12.dp, top = 2.dp)) {
+                Box(modifier = Modifier.padding(bottom = 8.dp, top = 0.dp)) {
                     PokemonSearchBar(
                         query = uiState.searchQuery,
                         onQueryChange = { viewModel.onSearchQueryChange(it) },

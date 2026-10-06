@@ -15,10 +15,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 
 /**
  * Reusable Search Bar untuk memfilter Pokémon berdasarkan nama atau ID
+ * Dibuat ramping dan ringkas 1 baris (single line)
  */
 @Composable
 fun PokemonSearchBar(
@@ -32,12 +34,14 @@ fun PokemonSearchBar(
         onValueChange = onQueryChange,
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 6.dp),
+            .padding(horizontal = 16.dp, vertical = 4.dp),
         placeholder = {
             Text(
-                text = "Cari Pokémon berdasarkan nama atau nomor...",
+                text = "Cari nama Pokémon...",
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         },
         leadingIcon = {
@@ -59,6 +63,7 @@ fun PokemonSearchBar(
             }
         },
         singleLine = true,
+        maxLines = 1,
         shape = RoundedCornerShape(20.dp),
         colors = OutlinedTextFieldDefaults.colors(
             focusedBorderColor = Color.Transparent,
