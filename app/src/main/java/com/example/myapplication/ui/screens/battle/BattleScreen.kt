@@ -85,8 +85,8 @@ private val PokemonRed = Color(0xFFE53935)
 
 /**
  * Layar Simulasi Battle & Perbandingan Atribut Head-to-Head Pokémon
- * Desain proporsional, rapi, solid (tidak floating), dengan kartu duel lapang,
- * medali piala Material murni (tanpa emotikon teks), dan komparasi statistik interaktif.
+ * TopAppBar solid dengan judul & teks subjudul,
+ * kartu petarung menyatu secara seamless dalam satu scroll dengan hasil pertarungan dan statistik detail.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -107,16 +107,25 @@ fun BattleScreen(
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
-            // TopAppBar solid resmi (menyatu utuh dengan status bar, tanpa lengkungan atau floating shadow)
+            // TopAppBar solid resmi dengan judul dan teks keterangan di bawahnya
             TopAppBar(
                 title = {
-                    Text(
-                        text = "Battle Arena",
-                        style = MaterialTheme.typography.titleLarge.copy(
-                            fontWeight = FontWeight.Bold,
-                            color = Color.White
+                    Column {
+                        Text(
+                            text = "Battle Arena",
+                            style = MaterialTheme.typography.titleLarge.copy(
+                                fontWeight = FontWeight.Bold,
+                                color = Color.White
+                            )
                         )
-                    )
+                        Text(
+                            text = "Simulasi Pertarungan & Analisis Atribut",
+                            style = MaterialTheme.typography.labelSmall.copy(
+                                color = Color.White.copy(alpha = 0.85f),
+                                fontWeight = FontWeight.Normal
+                            )
+                        )
+                    }
                 },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
@@ -135,6 +144,7 @@ fun BattleScreen(
             )
         }
     ) { innerPadding ->
+        // Area Konten yang Menyatu: Kartu Petarung, Hasil Duel, dan Statistik Detail mengalir dalam satu scroll
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -143,7 +153,7 @@ fun BattleScreen(
                 .padding(horizontal = 16.dp, vertical = 14.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Section 1: Matchup Duel Arena (Langsung berdampingan, lapang, tanpa wrapper ganda)
+            // Section 1: Kartu Petarung (Menyatu langsung dengan bagian konten)
             MatchupDuelSection(
                 pokemon1 = uiState.pokemon1,
                 pokemon2 = uiState.pokemon2,
@@ -154,7 +164,7 @@ fun BattleScreen(
                 onSwap = { viewModel.swapPokemon() }
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(14.dp))
 
             // Section 2: Banner Hasil Simulasi & Prediksi Pemenang
             if (uiState.pokemon1 != null && uiState.pokemon2 != null) {
@@ -164,7 +174,7 @@ fun BattleScreen(
                     analysis = uiState.analysisText
                 )
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(14.dp))
 
                 // Section 3: Perbandingan Statistik Detail
                 StatComparisonSection(
@@ -193,7 +203,7 @@ fun BattleScreen(
 }
 
 /**
- * Section Arena Duel Head-to-Head Berdampingan yang Proporsional dan Rapi
+ * Section Kartu Petarung Pokémon Berdampingan yang Rapi dan Proporsional
  */
 @Composable
 private fun MatchupDuelSection(
@@ -229,7 +239,7 @@ private fun MatchupDuelSection(
                 color = Color(0xFF263238),
                 shadowElevation = 3.dp,
                 border = BorderStroke(2.dp, Color.White),
-                modifier = Modifier.size(42.dp)
+                modifier = Modifier.size(40.dp)
             ) {
                 Box(contentAlignment = Alignment.Center) {
                     Text(
@@ -237,7 +247,8 @@ private fun MatchupDuelSection(
                         color = Color(0xFFFFD54F),
                         style = MaterialTheme.typography.titleSmall.copy(
                             fontWeight = FontWeight.Black,
-                            fontStyle = FontStyle.Italic
+                            fontStyle = FontStyle.Italic,
+                            fontSize = 14.sp
                         )
                     )
                 }
@@ -251,7 +262,7 @@ private fun MatchupDuelSection(
                 color = MaterialTheme.colorScheme.surfaceVariant,
                 shadowElevation = 2.dp,
                 border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
-                modifier = Modifier.size(34.dp)
+                modifier = Modifier.size(32.dp)
             ) {
                 Box(contentAlignment = Alignment.Center) {
                     Icon(
@@ -276,7 +287,7 @@ private fun MatchupDuelSection(
 }
 
 /**
- * Kartu Individual Tiap Petarung Pokémon
+ * Kartu Individual Tiap Petarung Pokémon Berwarna Elegan Sesuai Elemen
  */
 @Composable
 private fun FighterCard(
@@ -296,13 +307,13 @@ private fun FighterCard(
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-        border = BorderStroke(1.5.dp, typeColor.copy(alpha = 0.45f))
+        border = BorderStroke(1.2.dp, typeColor.copy(alpha = 0.45f))
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Brush.verticalGradient(gradientColors))
-                .padding(horizontal = 10.dp, vertical = 12.dp)
+                .padding(horizontal = 10.dp, vertical = 10.dp)
         ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -311,7 +322,7 @@ private fun FighterCard(
                 if (isLoading) {
                     Box(
                         modifier = Modifier
-                            .height(180.dp)
+                            .height(170.dp)
                             .fillMaxWidth(),
                         contentAlignment = Alignment.Center
                     ) {
@@ -331,24 +342,24 @@ private fun FighterCard(
                             color = MaterialTheme.colorScheme.onSurface,
                             style = MaterialTheme.typography.labelSmall.copy(
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 11.sp
+                                fontSize = 10.sp
                             ),
-                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 2.dp)
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
                         )
                     }
 
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(6.dp))
 
                     // Lingkaran Aura Putih Bersih + Gambar Pokémon
                     Box(
-                        modifier = Modifier.size(86.dp),
+                        modifier = Modifier.size(76.dp),
                         contentAlignment = Alignment.Center
                     ) {
                         Surface(
                             shape = CircleShape,
                             color = Color.White,
                             shadowElevation = 2.dp,
-                            modifier = Modifier.size(78.dp)
+                            modifier = Modifier.size(70.dp)
                         ) {}
 
                         SubcomposeAsyncImage(
@@ -358,16 +369,16 @@ private fun FighterCard(
                                 .build(),
                             contentDescription = pokemon.displayName,
                             contentScale = ContentScale.Fit,
-                            modifier = Modifier.size(78.dp)
+                            modifier = Modifier.size(68.dp)
                         )
                     }
 
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(6.dp))
 
                     // Nama Pokémon
                     Text(
                         text = pokemon.displayName,
-                        style = MaterialTheme.typography.titleMedium.copy(
+                        style = MaterialTheme.typography.titleSmall.copy(
                             fontWeight = FontWeight.ExtraBold,
                             color = MaterialTheme.colorScheme.onSurface
                         ),
@@ -376,12 +387,12 @@ private fun FighterCard(
                         textAlign = TextAlign.Center
                     )
 
-                    Spacer(modifier = Modifier.height(6.dp))
+                    Spacer(modifier = Modifier.height(4.dp))
 
                     // Type Badge
                     TypeBadge(type = pokemon.primaryType)
 
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
 
                     // Tombol Ganti Rapi
                     Surface(
@@ -395,7 +406,7 @@ private fun FighterCard(
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(vertical = 6.dp),
+                                .padding(vertical = 5.dp),
                             horizontalArrangement = Arrangement.Center,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
@@ -403,14 +414,15 @@ private fun FighterCard(
                                 imageVector = Icons.Default.CatchingPokemon,
                                 contentDescription = null,
                                 tint = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier.size(15.dp)
+                                modifier = Modifier.size(14.dp)
                             )
-                            Spacer(modifier = Modifier.width(6.dp))
+                            Spacer(modifier = Modifier.width(4.dp))
                             Text(
                                 text = "Ganti",
                                 color = MaterialTheme.colorScheme.onSurface,
-                                style = MaterialTheme.typography.labelMedium.copy(
-                                    fontWeight = FontWeight.Bold
+                                style = MaterialTheme.typography.labelSmall.copy(
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 11.sp
                                 )
                             )
                         }
