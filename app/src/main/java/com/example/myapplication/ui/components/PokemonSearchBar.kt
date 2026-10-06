@@ -14,10 +14,11 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 /**
- * Reusable Search Bar untuk memfilter Pokémon berdasarkan nama
+ * Reusable Search Bar untuk memfilter Pokémon berdasarkan nama atau ID
  */
 @Composable
 fun PokemonSearchBar(
@@ -31,18 +32,19 @@ fun PokemonSearchBar(
         onValueChange = onQueryChange,
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            .padding(horizontal = 16.dp, vertical = 6.dp),
         placeholder = {
             Text(
-                text = "Cari Pokémon berdasarkan nama...",
-                style = MaterialTheme.typography.bodyMedium
+                text = "Cari Pokémon berdasarkan nama atau nomor...",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
             )
         },
         leadingIcon = {
             Icon(
                 imageVector = Icons.Default.Search,
                 contentDescription = "Cari",
-                tint = MaterialTheme.colorScheme.primary
+                tint = Color(0xFFE53935)
             )
         },
         trailingIcon = {
@@ -57,10 +59,10 @@ fun PokemonSearchBar(
             }
         },
         singleLine = true,
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(20.dp),
         colors = OutlinedTextFieldDefaults.colors(
-            focusedBorderColor = MaterialTheme.colorScheme.primary,
-            unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant,
+            focusedBorderColor = Color.Transparent,
+            unfocusedBorderColor = Color.Transparent,
             focusedContainerColor = MaterialTheme.colorScheme.surface,
             unfocusedContainerColor = MaterialTheme.colorScheme.surface
         )

@@ -94,7 +94,7 @@ fun BattleScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "⚔️ Battle Arena & Komparasi",
+                        text = "Battle Arena & Komparasi",
                         style = MaterialTheme.typography.titleLarge.copy(
                             fontWeight = FontWeight.Bold
                         )
@@ -431,7 +431,7 @@ private fun StatComparisonSection(
                 .padding(16.dp)
         ) {
             Text(
-                text = "📊 Perbandingan Statistik Detail",
+                text = "Perbandingan Statistik Detail",
                 style = MaterialTheme.typography.titleMedium.copy(
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.primary
@@ -542,7 +542,7 @@ private fun StatCompareRow(
     ) {
         // Angka Sisi 1
         Text(
-            text = "$val1" + if (val1 > val2) " ▲" else "",
+            text = "$val1",
             style = MaterialTheme.typography.bodyMedium.copy(
                 fontWeight = if (val1 > val2 || isTotal) FontWeight.Bold else FontWeight.Normal,
                 color = if (val1 > val2) winColor else normalColor
@@ -564,7 +564,7 @@ private fun StatCompareRow(
 
         // Angka Sisi 2
         Text(
-            text = if (val2 > val1) "▲ " else "" + "$val2",
+            text = "$val2",
             style = MaterialTheme.typography.bodyMedium.copy(
                 fontWeight = if (val2 > val1 || isTotal) FontWeight.Bold else FontWeight.Normal,
                 color = if (val2 > val1) winColor else normalColor

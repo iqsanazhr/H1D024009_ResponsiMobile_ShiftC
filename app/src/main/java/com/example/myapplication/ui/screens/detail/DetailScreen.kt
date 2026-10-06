@@ -23,6 +23,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.FitnessCenter
 import androidx.compose.material.icons.filled.Height
+import androidx.compose.material.icons.filled.SportsKabaddi
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -118,17 +119,27 @@ fun DetailScreen(
                 },
                 actions = {
                     uiState.pokemonDetail?.let { detail ->
-                        androidx.compose.material3.FilledTonalButton(
+                        IconButton(
                             onClick = { onBattleClick(detail.id) },
-                            shape = RoundedCornerShape(12.dp),
-                            modifier = Modifier.padding(end = 12.dp)
+                            modifier = Modifier
+                                .padding(end = 8.dp)
+                                .size(42.dp)
                         ) {
-                            Text(
-                                text = "⚔️ Battle",
-                                style = MaterialTheme.typography.labelMedium.copy(
-                                    fontWeight = FontWeight.Bold
-                                )
-                            )
+                            Surface(
+                                shape = CircleShape,
+                                color = MaterialTheme.colorScheme.primaryContainer,
+                                shadowElevation = 2.dp,
+                                modifier = Modifier.fillMaxSize()
+                            ) {
+                                Box(contentAlignment = Alignment.Center) {
+                                    Icon(
+                                        imageVector = Icons.Default.SportsKabaddi,
+                                        contentDescription = "Battle Arena",
+                                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                                        modifier = Modifier.size(24.dp)
+                                    )
+                                }
+                            }
                         }
                     }
                 },
@@ -411,10 +422,19 @@ private fun PokemonDetailContent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(52.dp),
-                shape = RoundedCornerShape(16.dp)
+                shape = RoundedCornerShape(16.dp),
+                colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFFE53935)
+                )
             ) {
+                Icon(
+                    imageVector = Icons.Default.SportsKabaddi,
+                    contentDescription = null,
+                    modifier = Modifier.size(22.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "⚔️ Uji Pertarungan di Battle Arena",
+                    text = "Uji Pertarungan di Battle Arena",
                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
                 )
             }

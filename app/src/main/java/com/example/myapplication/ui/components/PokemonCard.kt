@@ -1,16 +1,18 @@
 package com.example.myapplication.ui.components
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -22,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -33,11 +36,12 @@ import androidx.compose.ui.unit.sp
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import com.example.myapplication.data.model.PokemonItem
-import com.example.myapplication.ui.theme.getPokemonTypeColor
+import com.example.myapplication.ui.theme.getPokemonGradient
 
 /**
- * Reusable Card untuk item Pokémon di dalam LazyVerticalGrid
- * Menampilkan latar belakang yang beradaptasi dengan warna tipe atribut Pokémon
+ * Modern Elevated Pokémon Card (Gaya Desain Pokédex Kontemporer)
+ * Menampilkan kartu gradien penuh warna elemen tanpa kotak bertingkat (nested box),
+ * dilengkapi aura lingkaran translucent dan tipografi putih kontras tinggi.
  */
 @Composable
 fun PokemonCard(
@@ -45,107 +49,114 @@ fun PokemonCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val typeColor = getPokemonTypeColor(pokemon.primaryType)
+    val gradientColors = getPokemonGradient(pokemon.primaryType)
 
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(20.dp))
+            .clip(RoundedCornerShape(24.dp))
             .clickable { onClick() },
-        shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = typeColor.copy(alpha = 0.12f)
-        ),
-        border = BorderStroke(1.dp, typeColor.copy(alpha = 0.35f)),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        shape = RoundedCornerShape(24.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.Transparent)
     ) {
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .background(
+                    Brush.verticalGradient(
+                        colors = gradientColors
+                    )
+                )
+                .padding(14.dp)
         ) {
-            // Header Nomor ID Pokémon
-            Box(
+            Column(
                 modifier = Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.TopEnd
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Surface(
-                    color = typeColor.copy(alpha = 0.25f),
-                    shape = RoundedCornerShape(8.dp)
+                // Header Bar: Type Badge (Kiri) & ID Nomor (Kanan)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
+                    // Glassmorphic Type Pill
+                    Surface(
+                        shape = RoundedCornerShape(50),
+                        color = Color.White.copy(alpha = 0.28f)
+                    ) {
+                        Text(
+                            text = pokemon.primaryType.replaceFirstChar { it.titlecase() },
+                            color = Color.White,
+                            style = MaterialTheme.typography.labelSmall.copy(
+                                fontWeight = FontWeight.ExtraBold,
+                                fontSize = 11.sp
+                            ),
+                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
+                        )
+                    }
+
+                    // ID Badge
                     Text(
                         text = pokemon.formattedId,
-                        style = MaterialTheme.typography.labelSmall.copy(
-                            fontWeight = FontWeight.ExtraBold,
-                            color = MaterialTheme.colorScheme.onSurface,
-                            fontSize = 11.sp
-                        ),
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
+                        color = Color.White.copy(alpha = 0.85f),
+                        style = MaterialTheme.typography.labelMedium.copy(
+                            fontWeight = FontWeight.Black,
+                            fontSize = 12.sp
+                        )
                     )
                 }
-            }
 
-            Spacer(modifier = Modifier.height(6.dp))
+                Spacer(modifier = Modifier.height(8.dp))
 
-            // Kotak Gambar Pokémon dengan Latar Belakang Warna Atribut
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(115.dp)
-                    .clip(RoundedCornerShape(16.dp))
-                    .background(
-                        Brush.radialGradient(
-                            colors = listOf(
-                                typeColor.copy(alpha = 0.50f),
-                                typeColor.copy(alpha = 0.20f)
-                            )
-                        )
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                SubcomposeAsyncImage(
-                    model = ImageRequest.Builder(LocalContext.current)
-                        .data(pokemon.imageUrl)
-                        .crossfade(true)
-                        .build(),
-                    contentDescription = pokemon.displayName,
-                    contentScale = ContentScale.Fit,
+                // Lingkaran Aura Bersinar di Belakang Artwork
+                Box(
                     modifier = Modifier
-                        .size(100.dp)
-                        .padding(4.dp),
-                    loading = {
-                        Box(
-                            contentAlignment = Alignment.Center,
-                            modifier = Modifier.fillMaxSize()
-                        ) {
-                            CircularProgressIndicator(
-                                modifier = Modifier.size(24.dp),
-                                strokeWidth = 2.dp,
-                                color = typeColor
-                            )
+                        .size(112.dp)
+                        .clip(CircleShape)
+                        .background(Color.White.copy(alpha = 0.20f)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    SubcomposeAsyncImage(
+                        model = ImageRequest.Builder(LocalContext.current)
+                            .data(pokemon.imageUrl)
+                            .crossfade(true)
+                            .build(),
+                        contentDescription = pokemon.displayName,
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier
+                            .size(105.dp)
+                            .padding(4.dp),
+                        loading = {
+                            Box(
+                                contentAlignment = Alignment.Center,
+                                modifier = Modifier.fillMaxSize()
+                            ) {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.size(24.dp),
+                                    strokeWidth = 2.dp,
+                                    color = Color.White
+                                )
+                            }
                         }
-                    }
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // Nama Pokémon Bold & Bersih
+                Text(
+                    text = pokemon.displayName,
+                    color = Color.White,
+                    style = MaterialTheme.typography.titleMedium.copy(
+                        fontWeight = FontWeight.Black,
+                        fontSize = 16.sp,
+                        letterSpacing = 0.3.sp
+                    ),
+                    maxLines = 1,
+                    textAlign = TextAlign.Center
                 )
             }
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            // Nama Pokémon
-            Text(
-                text = pokemon.displayName,
-                style = MaterialTheme.typography.titleMedium.copy(
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurface
-                ),
-                maxLines = 1,
-                textAlign = TextAlign.Center
-            )
-
-            Spacer(modifier = Modifier.height(6.dp))
-
-            // Badge Tipe Atribut Pokémon
-            TypeBadge(type = pokemon.primaryType)
         }
     }
 }

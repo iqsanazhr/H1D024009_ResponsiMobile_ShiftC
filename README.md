@@ -2,7 +2,7 @@
 
 <img src="docs/icon.png" width="130" height="130" alt="PokéDex Explorer Icon" style="border-radius: 28px;" />
 
-# 🔴 PokéDex Explorer: Catalog & Battle Arena
+# PokéDex Explorer: Catalog & Battle Arena
 > Aplikasi Katalog Pokémon Dinamis, Eksplorasi Atribut, dan Simulasi Pertarungan Modern berbasis Android dengan Jetpack Compose Material 3, PokéAPI REST, dan Arsitektur MVVM.
 
 [![Release](https://img.shields.io/badge/RELEASE-V1.0.0-2979FF?style=for-the-badge&logo=github)](https://github.com/iqsanazhr/H1D024009_ResponsiMobile_ShiftC)
@@ -19,7 +19,7 @@
 
 </div>
 
-## 👤 Identitas Praktikan
+## Identitas Praktikan
 - **Nama Lengkap:** Iqsan Azhar Nuryadi
 - **NIM:** H1D024009
 - **Shift Awal:** Shift C
@@ -28,14 +28,14 @@
 
 ---
 
-## 📱 Deskripsi Aplikasi
+## Deskripsi Aplikasi
 **PokéDex Explorer** adalah aplikasi mobile Android modern yang dikembangkan untuk memfasilitasi pencarian, katalogisasi, dan eksplorasi data Pokémon secara dinamis langsung dari [PokéAPI](https://pokeapi.co/).
 
 Aplikasi ini mengatasi kendala pengguna dalam mencari dan memahami atribut Pokémon (seperti nama, tipe elemen, tinggi, berat, kemampuan/abilities, dan visualisasi bar statistik dasar seperti HP, Attack, Defense, Sp. Atk, Sp. Def, dan Speed). Dengan antarmuka berbasis **Jetpack Compose Material 3**, aplikasi ini menyajikan pengalaman interaktif yang responsif, visual official artwork berkualitas tinggi, serta navigasi yang mulus berlandaskan arsitektur **MVVM (Model-View-ViewModel)**.
 
 ---
 
-## 🛠️ Penjelasan Teknis
+## Penjelasan Teknis
 
 ### 1. Spesifikasi & Tech Stack
 - **Bahasa:** Kotlin 2.0.21
@@ -105,7 +105,7 @@ app/src/main/java/com/example/myapplication/
 
 ---
 
-## 📸 Tangkapan Layar (Screenshots)
+## Tangkapan Layar (Screenshots)
 
 | Katalog Home & Grid | Pencarian & Filter | Detail Pokémon & Stats | Battle Arena & Komparasi |
 |:---:|:---:|:---:|:---:|
@@ -114,7 +114,7 @@ app/src/main/java/com/example/myapplication/
 
 ---
 
-## 🚀 Cara Menjalankan Proyek
+## Cara Menjalankan Proyek
 
 1. **Prasyarat:**
    - Android Studio (versi Ladybug / Koala / Hedgehog atau lebih baru disarankan).

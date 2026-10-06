@@ -12,22 +12,22 @@ val Pink40 = Color(0xFF7D5260)
 
 // Pokémon Element Type Colors
 val TypeNormal = Color(0xFFA8A878)
-val TypeFire = Color(0xFFF08030)
-val TypeWater = Color(0xFF6890F0)
-val TypeGrass = Color(0xFF78C850)
-val TypeElectric = Color(0xFFF8D030)
-val TypeIce = Color(0xFF98D8D8)
-val TypeFighting = Color(0xFFC03028)
-val TypePoison = Color(0xFFA040A0)
+val TypeFire = Color(0xFFFB6C6C)
+val TypeWater = Color(0xFF77BDFE)
+val TypeGrass = Color(0xFF48D0B0)
+val TypeElectric = Color(0xFFFFCE4B)
+val TypeIce = Color(0xFF81D4FA)
+val TypeFighting = Color(0xFFD35400)
+val TypePoison = Color(0xFFA569BD)
 val TypeGround = Color(0xFFE0C068)
 val TypeFlying = Color(0xFFA890F0)
-val TypePsychic = Color(0xFFF85888)
+val TypePsychic = Color(0xFFFF76AC)
 val TypeBug = Color(0xFFA8B820)
-val TypeRock = Color(0xFFB8A038)
-val TypeGhost = Color(0xFF705898)
-val TypeDragon = Color(0xFF7038F8)
-val TypeSteel = Color(0xFFB8B8D0)
-val TypeFairy = Color(0xFFEE99AC)
+val TypeRock = Color(0xFFC5B064)
+val TypeGhost = Color(0xFF7E69B5)
+val TypeDragon = Color(0xFF7C5CDA)
+val TypeSteel = Color(0xFF9EA3A8)
+val TypeFairy = Color(0xFFF4A6C7)
 val TypeDark = Color(0xFF705848)
 
 // Stat Progress Bar Colors
@@ -62,6 +62,31 @@ fun getPokemonTypeColor(type: String): Color {
         "fairy" -> TypeFairy
         "dark" -> TypeDark
         else -> Color(0xFF888888)
+    }
+}
+
+/**
+ * Mendapatkan gradien modern untuk latar belakang kartu Pokémon
+ */
+fun getPokemonGradient(type: String): List<Color> {
+    return when (type.lowercase()) {
+        "grass" -> listOf(Color(0xFF48D0B0), Color(0xFF2CB896))
+        "fire" -> listOf(Color(0xFFFB6C6C), Color(0xFFE24F4F))
+        "water" -> listOf(Color(0xFF77BDFE), Color(0xFF479AF8))
+        "electric" -> listOf(Color(0xFFFFCE4B), Color(0xFFE5A71E))
+        "poison" -> listOf(Color(0xFFA569BD), Color(0xFF8E44AD))
+        "bug" -> listOf(Color(0xFFA8B820), Color(0xFF8D9C14))
+        "normal" -> listOf(Color(0xFFB8B8A8), Color(0xFF9E9E8C))
+        "ground" -> listOf(Color(0xFFE0C068), Color(0xFFC7A246))
+        "fairy" -> listOf(Color(0xFFF4A6C7), Color(0xFFE57FA7))
+        "fighting" -> listOf(Color(0xFFD35400), Color(0xFFB94400))
+        "psychic" -> listOf(Color(0xFFFF76AC), Color(0xFFE84F8C))
+        "rock" -> listOf(Color(0xFFC5B064), Color(0xFFA89446))
+        "ghost" -> listOf(Color(0xFF7E69B5), Color(0xFF654E9E))
+        "ice" -> listOf(Color(0xFF81D4FA), Color(0xFF4FC3F7))
+        "dragon" -> listOf(Color(0xFF7C5CDA), Color(0xFF6240C2))
+        "steel" -> listOf(Color(0xFF9EA3A8), Color(0xFF81868B))
+        else -> listOf(Color(0xFF95A5A6), Color(0xFF7F8C8D))
     }
 }
 
