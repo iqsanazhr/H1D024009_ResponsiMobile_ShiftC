@@ -19,12 +19,28 @@
 
 </div>
 
-## Identitas Praktikan
+## 👤 Identitas Praktikan
 - **Nama Lengkap:** Iqsan Azhar Nuryadi
 - **NIM:** H1D024009
 - **Shift Awal:** Shift A
 - **Shift Akhir:** Shift C
-- **Link Video Demo/Penjelasan:** [YouTube/Google Drive](https://...)
+- **Link Video Demo/Penjelasan:** [YouTube (Klik untuk Menonton)](https://youtu.be/LuvycNSW5ng)
+
+---
+
+## 🎬 Video Demo & Penjelasan Kode
+
+<div align="center">
+
+[![Video Penjelasan Responsi](docs/yt_preview.png)](https://youtu.be/LuvycNSW5ng)
+
+<br/>
+
+[![Watch on YouTube](https://img.shields.io/badge/YouTube-Tonton%20Video%20Demo%20%26%20Penjelasan%20Kode-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/LuvycNSW5ng)
+
+*Klik kartu pratinjau di atas atau badge merah untuk memutar video penjelasan kode di YouTube.*
+
+</div>
 
 ---
 
